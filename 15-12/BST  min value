@@ -1,0 +1,68 @@
+//finding the node with the min value in the binary search tree
+#include <iostream>
+using namespace std;
+
+class node {
+  public:
+  int key ;
+  node* left;
+  node* right;
+};
+
+//creating new node 
+node* newNode(int k){
+  node* n = new node();
+  n->key = k;
+  n->left = NULL;
+  n->right = NULL;
+  return n;
+}
+
+// creating a bst//
+node* insertNode(node*n, int k){
+  if (n==NULL){
+    return newNode(k);
+  }
+  else {
+    //recurring down the tree
+    if(k<n->key){
+      n->left = insertNode(n->left,k);
+    }
+    else{
+      n->right = insertNode(n->right,k);
+    }
+  }
+  return n;
+}
+
+// finding the min value , given a bst 
+int minValue(node* n){
+  node* temp = n;//creating temp node for traversal//
+  while(temp->left!=NULL){
+    temp=temp->left;
+  }
+  cout<<temp->key;
+  return  temp->key;
+}
+int main(){
+  node* root = NULL;
+  int val;
+  do{
+    cout<<"Enter the value to be pushed into the tree"<<endl;
+    cin>>val;
+    if(val==0){
+      break;
+    }
+    if(root==NULL)
+    {
+      root = insertNode(root, val);
+    }
+    else{
+      insertNode(root, val);
+    }
+  }while(val!=0);
+
+  cout<<"min value is "<<endl;
+  minValue(root);
+  return 0;
+}
